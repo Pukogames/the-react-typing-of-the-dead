@@ -32,18 +32,22 @@ var RtodApp = React.createClass({displayName: 'RtodApp',
       React.createElement('div', {className: 'RtodApp'},
         React.createElement('h1', null, 'The React Typing of the Dead'),
         React.createElement(RtodScore.getReactElement()),
-        React.createElement('div', {
-          dangerouslySetInnerHTML: {
-            __html: this.state.aim
-          }
-        }),
-        React.createElement('div', {
-          dangerouslySetInnerHTML: {
-            __html: this.state.remaining
-          }
-        }),
+        React.createElement('div', {className: 'aim'},
+          React.createElement('div', {
+            dangerouslySetInnerHTML: {
+              __html: this.state.aim
+            }
+          }),
+          React.createElement('div', {
+            className: 'remaining',
+            dangerouslySetInnerHTML: {
+              __html: this.state.remaining
+            }
+          })
+        ),
         React.createElement('input', {
-          onKeyUp: this.onKeyDown
+          onKeyUp: this.onKeyDown,
+          autoFocus: true
         })
       )
     );

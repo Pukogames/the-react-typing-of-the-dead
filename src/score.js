@@ -6,11 +6,9 @@ var RtodScore = (function() {
     displayName: "RtodScoreSection",
     render: function() {
       return React.createElement("div", null,
-        React.createElement('span', null, 'Score: '),
-        React.createElement('span', null, this.state.score),
-        React.createElement('span', null,
-          React.createElement('span', null, 'x'),
-          React.createElement('span', null, this.state.combo)
+        React.createElement('span', {className: 'score'},
+          React.createElement('span', null, this.state.score),
+          React.createElement('span', {className: 'combo'}, this.state.combo)
         )
       );
     },
