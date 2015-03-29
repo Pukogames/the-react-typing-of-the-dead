@@ -1,28 +1,43 @@
-var RtodApp = React.createClass({
-  displayName: 'RtodApp',
+var RtodApp = React.createClass({displayName: 'RtodApp',
+  word: RtodDico.getRandomWord(),
   getInitialState: function() {
     return {
-      items: ['castle', 'sweeties', 'cat'],
-      aimItem: '',
-      currentTyping: ''
+      aim: this.word,
+      remaining: this.word
     };
   },
-  onChange: function(e) {
-    this.setState({
-      currentTyping: e.target.value
-    });
+  onKeyDown: function(e) {
+    if (e.target.value.length > 0 && this.word.indexOf(e.target.value) === 0) {
+      this.word = this.word.substring(e.target.value.length, this.word.length);
+      this.setState({
+        remaining: this.word
+      });
+      if (this.word.length === 0) {
+        this.word = RtodDico.getRandomWord();
+        this.setState({
+          aim: this.word,
+          remaining: this.word
+        });
+      }
+    }
+    e.target.value = '';
   },
   render: function() {
     return (
       React.createElement('div', {className: 'RtodApp'},
         React.createElement('h1', null, 'The React Type of the Dead'),
-        React.createElement('input', {
-          onChange: this.onChange
+        React.createElement('div', {
+          dangerouslySetInnerHTML: {
+            __html: this.state.aim
+          }
         }),
         React.createElement('div', {
           dangerouslySetInnerHTML: {
-            __html: this.state.currentTyping
+            __html: this.state.remaining
           }
+        }),
+        React.createElement('input', {
+          onKeyUp: this.onKeyDown
         })
       )
     );
