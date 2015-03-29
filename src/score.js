@@ -32,21 +32,21 @@ var RtodScore = (function() {
 
   return {
     increment: function() {
-      score += 1 * combo;
+      combo += 1;
       refreshDom();
     },
     decrement: function() {
-      score -= 1 * combo;
+      combo = 1;
       refreshDom();
     },
     wordComplete: function() {
       score += 10 * combo;
-      combo++;
+      combo = 1;
       refreshDom();
     },
     reset: function() {
       score = 0;
-      combo = 0;
+      combo = 1;
       refreshDom();
     },
     getReactElement: function() {
