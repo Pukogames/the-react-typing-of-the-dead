@@ -8,11 +8,13 @@ var RtodApp = React.createClass({displayName: 'RtodApp',
   },
   onKeyDown: function(e) {
     if (e.target.value.length > 0 && this.word.indexOf(e.target.value) === 0) {
+      RtodScore.increment();
       this.word = this.word.substring(e.target.value.length, this.word.length);
       this.setState({
         remaining: this.word
       });
       if (this.word.length === 0) {
+        RtodScore.wordComplete();
         this.word = RtodDico.getRandomWord();
         this.setState({
           aim: this.word,
@@ -20,12 +22,16 @@ var RtodApp = React.createClass({displayName: 'RtodApp',
         });
       }
     }
+    else {
+      RtodScore.decrement();
+    }
     e.target.value = '';
   },
   render: function() {
     return (
       React.createElement('div', {className: 'RtodApp'},
-        React.createElement('h1', null, 'The React Type of the Dead'),
+        React.createElement('h1', null, 'The React Typing of the Dead'),
+        React.createElement(RtodScore.getReactElement()),
         React.createElement('div', {
           dangerouslySetInnerHTML: {
             __html: this.state.aim
@@ -43,6 +49,7 @@ var RtodApp = React.createClass({displayName: 'RtodApp',
     );
   }
 });
+
 React.render(
   React.createElement(RtodApp, null),
   document.getElementById('content')
