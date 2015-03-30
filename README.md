@@ -1,2 +1,2 @@
-# the-react-typing-of-the-dead
-The Typing of the Dead in React
+# The Typing of the Dead in React
+http://pukogames.github.io/the-react-typing-of-the-dead/
