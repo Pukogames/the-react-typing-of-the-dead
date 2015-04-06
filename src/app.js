@@ -7,6 +7,9 @@ var RtodApp = React.createClass({displayName: 'RtodApp',
     };
   },
   onKeyDown: function(e) {
+    if (e.target.value.length === 0) {
+      return;
+    }
     if (e.target.value.length > 0 && this.word.indexOf(e.target.value) === 0) {
       RtodScore.increment();
       this.word = this.word.substring(e.target.value.length, this.word.length);
