@@ -1,6 +1,14 @@
 var RtodApp = React.createClass({displayName: 'RtodApp',
   word: RtodDico.getRandomWord(),
   getInitialState: function() {
+    var vm = this;
+    RtodDico.setTimeoutCallback(function() {
+      vm.word = RtodDico.getRandomWord();
+      vm.setState({
+        aim: vm.word,
+        remaining: vm.word
+      });
+    });
     return {
       aim: this.word,
       remaining: this.word
