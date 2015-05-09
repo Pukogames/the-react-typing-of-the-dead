@@ -8,6 +8,15 @@ var RtodApp = React.createClass({displayName: 'RtodApp',
         aim: vm.word,
         remaining: vm.word
       });
+      RtodLife.decrement();
+    });
+    RtodLife.setDeadCallback(function() {
+      RtodDico.reset();
+      vm.word = "";
+      vm.setState({
+        aim: "",
+        remaining: ""
+      });
     });
     return {
       aim: this.word,
@@ -39,27 +48,37 @@ var RtodApp = React.createClass({displayName: 'RtodApp',
     e.target.value = '';
   },
   render: function() {
+    var aimDiv = "";
+    if (this.state.aim.length > 0) {
+      aimDiv = React.createElement('div', {className: 'aim'},
+        React.createElement('div', {
+          dangerouslySetInnerHTML: {
+            __html: this.state.aim
+          }
+        }),
+        React.createElement('div', {
+          className: 'remaining',
+          dangerouslySetInnerHTML: {
+            __html: this.state.remaining
+          }
+        })
+      );
+    }
+    var deadDiv = "";
+    if (this.state.aim.length === 0) {
+      aimDiv = React.createElement('div', {className: 'dead'}, "You're dead");
+    }
     return (
       React.createElement('div', {className: 'RtodApp'},
         React.createElement('h1', null, 'The React Typing of the Dead'),
         React.createElement(RtodScore.getReactElement()),
-        React.createElement('div', {className: 'aim'},
-          React.createElement('div', {
-            dangerouslySetInnerHTML: {
-              __html: this.state.aim
-            }
-          }),
-          React.createElement('div', {
-            className: 'remaining',
-            dangerouslySetInnerHTML: {
-              __html: this.state.remaining
-            }
-          })
-        ),
+        aimDiv,
+        deadDiv,
         React.createElement('input', {
           onKeyUp: this.onKeyDown,
           autoFocus: true
-        })
+        }),
+        React.createElement(RtodLife.getReactElement())
       )
     );
   }

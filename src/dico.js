@@ -22,6 +22,10 @@ var RtodDico = (function() {
       word = dico[getRandomInt(0, length)];
       setWordTimeout();
       return word;
+    },
+    reset: function() {
+      clearTimeout(timeout);
+      word = "";
     }
   }
 })();
